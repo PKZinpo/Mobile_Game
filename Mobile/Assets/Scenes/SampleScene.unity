@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 252690725}
   m_Layer: 0
   m_Name: MapGeneration
-  m_TagString: Untagged
+  m_TagString: MapGeneration
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -488,7 +488,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a617f1e9057934d448835e9936138509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravityVal: 0
+  verticalGravity: 0
+  horizontalGravity: 5
+  horizontalImpulse: 10
 --- !u!1001 &4003491701545958794
 PrefabInstance:
   m_ObjectHideFlags: 0
