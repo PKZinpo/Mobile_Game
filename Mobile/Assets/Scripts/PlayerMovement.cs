@@ -32,5 +32,9 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Y)) {
             rigidBody.AddForce(Vector3.right * horizontalImpulse, ForceMode.Impulse);
         }
+        //if (Input.touchCount > 0) {
+        //    Touch touch = Input.GetTouch(0);
+        //    Debug.Log(touch.position);
+        //}
     }
 }
