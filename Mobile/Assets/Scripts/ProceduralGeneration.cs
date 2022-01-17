@@ -10,7 +10,7 @@ public class ProceduralGeneration : MonoBehaviour {
 
     private float dis;
     private int spawnDistance;
-    private GameObject player;
+    private GameObject start;
 
 
     private void Awake() {
@@ -18,12 +18,12 @@ public class ProceduralGeneration : MonoBehaviour {
     }
 
     private void Start() {
-        player = GameObject.FindGameObjectWithTag("Player");
+        start = GameObject.FindGameObjectWithTag("Start");
 
         for (spawnDistance = 0; spawnDistance < spawnDistanceMax; spawnDistance++) {
-            Vector3 targetPos = new Vector3(player.transform.position.x + (spawnDistance * dis), player.transform.position.y, player.transform.position.z);
-            if (Physics.Raycast(targetPos, transform.TransformDirection(Vector3.down), out RaycastHit floorHit, Mathf.Infinity)) {
-                Debug.DrawRay(targetPos, transform.TransformDirection(Vector3.down) * floorHit.distance);
+            Vector3 targetPos = new Vector3(start.transform.position.x + (spawnDistance * dis), start.transform.position.y, start.transform.position.z);
+            if (Physics.Raycast(targetPos, transform.TransformDirection(Vector3.down), Mathf.Infinity)) {
+                Debug.Log("[ProceduralGeneration] Map exists");
             }
             else {
                 GameObject map = Instantiate(mapPrefab);

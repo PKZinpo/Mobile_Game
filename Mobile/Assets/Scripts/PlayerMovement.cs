@@ -2,44 +2,39 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
-    
-    [SerializeField] private float horizontalImpulse;
-
     private GlobalVariables gv;
+    private GameManager gm;
 
     private float gravity;
     private Rigidbody rigidBody;
     
     private void Start() {
         gv = GameObject.Find("Global").GetComponent<GlobalVariables>();
-        Debug.Log("[PlayerMovement] Gravity is " + gv.VerticalGravity + " and " + gv.HorizontalGravity);
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         rigidBody = GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate() {
-        if (Input.GetKey(KeyCode.Space)) {
+        if (!gm.GameStarted) return;
+
+        if (Input.GetMouseButton(0)) {
             gravity = -gv.VerticalGravity;
         }
         else {
             gravity = gv.VerticalGravity;
         }
 
+        //if (Mathf.Abs(rigidBody.velocity.y) < gv.MaxVerticalVelocity) {
         rigidBody.AddForce(Vector3.down * gravity, ForceMode.Acceleration);
+        //}
+            
         if (rigidBody.velocity.x > 0f) {
             rigidBody.AddForce(Vector3.left * gv.HorizontalGravity, ForceMode.Acceleration);
         }
-        //if (rigidBody.velocity.x < 10f) {
-        //    rigidBody.AddForce(Vector3.right * horizontalImpulse, ForceMode.Force);
-        //}
     }
 
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.Y)) {
-            rigidBody.AddForce(Vector3.right * horizontalImpulse, ForceMode.Impulse);
-        }
-        //if (Input.touchCount > 0) {
-        //    Touch touch = Input.GetTouch(0);
-        //    Debug.Log(touch.position);
-        //}
+    public void StartGamePlayer() {
+        rigidBody.AddForce(Vector3.right * gv.StartImpulse, ForceMode.Impulse);
     }
 }
