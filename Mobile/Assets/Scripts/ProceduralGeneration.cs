@@ -46,7 +46,7 @@ public class ProceduralGeneration : MonoBehaviour {
 
     private void GenerateObstacle(Vector3 position) {
         GameObject obstacle = Instantiate(obstaclePrefab);
-        obstacle.transform.position = new Vector3(position.x + Random.Range(0, dis), position.y, position.z);
+        obstacle.transform.position = new Vector3(position.x + Random.Range(0, dis) - (dis / 2), position.y, position.z);
 
         //obstacle.GetComponent<GravityManager>().
     }

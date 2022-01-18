@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour {
     private GravityManager gravityManager;
 
     private Rigidbody rigidBody;
+    private bool gameOver = false;
     
     private void Start() {
         gv = GameObject.Find("Global").GetComponent<GlobalVariables>();
@@ -21,11 +22,9 @@ public class PlayerMovement : MonoBehaviour {
 
         if (Input.GetMouseButton(0)) {
             gravityManager.InvertGravity = true;
-            //gravityManager.Gravity = -gv.VerticalGravity;
         }
         else {
             gravityManager.InvertGravity = false;
-            //gravityManager.Gravity = gv.VerticalGravity;
         }
 
         if (rigidBody.velocity.x > 0f) {
@@ -38,6 +37,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.tag == "Bound" && (int)rigidBody.velocity.x == 0) gm.GameEnd();
         if (collision.gameObject.tag != "Obstacle") return;
 
         ICollision collisionObject = collision.gameObject.GetComponent<ICollision>();

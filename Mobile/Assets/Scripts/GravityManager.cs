@@ -13,7 +13,6 @@ public class GravityManager : MonoBehaviour {
     private float gravity;
 
     public bool InvertGravity { get { return invertGravity; } set { invertGravity = value; InvertGravityObject(); } }
-    //public float Gravity { get { return gravity; } set { if (value < 0) InvertGravity = false; else InvertGravity = true; gravity = value; } }
     public float Gravity { get { return gravity; } set { gravity = value; } }
 
     private void Awake() {
@@ -32,12 +31,12 @@ public class GravityManager : MonoBehaviour {
         if (tag == "Player" && !gm.GameStarted) return;
         if (verticalVelocityCap) {
             if (InvertGravity) {
-                if (rigidBody.velocity.y > -gv.MaxVerticalVelocity) {
+                if (rigidBody.velocity.y < gv.MaxVerticalVelocity) {
                     rigidBody.AddForce(Vector3.down * gravity, ForceMode.Acceleration);
                 }
             }
             else {
-                if (rigidBody.velocity.y < gv.MaxVerticalVelocity) {
+                if (rigidBody.velocity.y > -gv.MaxVerticalVelocity) {
                     rigidBody.AddForce(Vector3.down * gravity, ForceMode.Acceleration);
                 }
             }
