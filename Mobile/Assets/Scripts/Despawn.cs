@@ -16,7 +16,7 @@ public class Despawn : MonoBehaviour {
         float distance = Vector3.Distance(transform.position, player.transform.position);
 
         if (distance > despawnDis && transform.position.x - player.transform.position.x < 0) {
-            Debug.Log("[Despawn] Object despawned at " + distance);
+            //Debug.Log("[Despawn] Object despawned at " + distance);
             Destroy(gameObject);
         }
     }

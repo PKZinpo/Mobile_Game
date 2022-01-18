@@ -6,6 +6,7 @@ TagManager:
   tags:
   - MapGeneration
   - Start
+  - Obstacle
   layers:
   - Default
   - TransparentFX

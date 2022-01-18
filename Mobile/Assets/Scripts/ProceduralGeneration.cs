@@ -7,6 +7,7 @@ public class ProceduralGeneration : MonoBehaviour {
     [SerializeField] private int spawnDistanceMax;
     [SerializeField] private GameObject ceiling;
     [SerializeField] private GameObject mapPrefab;
+    [SerializeField] private GameObject obstaclePrefab;
 
     private float dis;
     private int spawnDistance;
@@ -37,6 +38,16 @@ public class ProceduralGeneration : MonoBehaviour {
         GameObject map = Instantiate(mapPrefab);
         map.transform.position = new Vector3(position.x + (spawnDistanceMax * dis), position.y, position.z);
 
-        Debug.Log("[ProceduralGeneration] Generating map");
+        if (Random.Range(0, 2)  == 0) {
+            GenerateObstacle(map.transform.position);
+        }
+        //Debug.Log("[ProceduralGeneration] Generating map");
+    }
+
+    private void GenerateObstacle(Vector3 position) {
+        GameObject obstacle = Instantiate(obstaclePrefab);
+        obstacle.transform.position = new Vector3(position.x + Random.Range(0, dis), position.y, position.z);
+
+        //obstacle.GetComponent<GravityManager>().
     }
 }

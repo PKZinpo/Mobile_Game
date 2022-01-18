@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.37311554, g: 0.38073874, b: 0.3587339, a: 1}
+  m_IndirectSpecularColor: {r: 0.3731152, g: 0.38073796, b: 0.35873365, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -198,6 +198,7 @@ MonoBehaviour:
   spawnDistanceMax: 5
   ceiling: {fileID: 4886501605639498607, guid: 1dc3d5773cc2703479f86ed86dd66d19, type: 3}
   mapPrefab: {fileID: 4003491700827712914, guid: fe818fbebd690184e86a659a84352ad9, type: 3}
+  obstaclePrefab: {fileID: 7721836668621031162, guid: e81fe759fce0bf64d95c744d3a51dd4d, type: 3}
 --- !u!4 &252690726
 Transform:
   m_ObjectHideFlags: 0
@@ -962,8 +963,9 @@ GameObject:
   - component: {fileID: 1427501831}
   - component: {fileID: 1427501830}
   - component: {fileID: 1427501834}
-  - component: {fileID: 1427501835}
   - component: {fileID: 1427501836}
+  - component: {fileID: 1427501835}
+  - component: {fileID: 1427501837}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1182,6 +1184,20 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &1427501837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427501829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d3f5fcd0cff48f4bb5175a277a08ea1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invertGravity: 0
+  verticalVelocityCap: 1
 --- !u!1 &1755983501
 GameObject:
   m_ObjectHideFlags: 0
