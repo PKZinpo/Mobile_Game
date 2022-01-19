@@ -49,4 +49,12 @@ public class PlayerMovement : MonoBehaviour {
             collisionObject.Collision();
         }
     }
+
+    private void OnTriggerEnter(Collider trigger) {
+
+        ITrigger triggerObject = trigger.gameObject.GetComponent<ITrigger>();
+        if (triggerObject != null) {
+            triggerObject.Trigger();
+        }
+    }
 }
