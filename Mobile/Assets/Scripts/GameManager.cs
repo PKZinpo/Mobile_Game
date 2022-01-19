@@ -11,8 +11,8 @@ public class GameManager : MonoBehaviour {
     public bool GameStarted { get { return gameStarted; } set { gameStarted = value; } }
 
     public void StartGame() {
-        GameStarted = true;
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().StartGamePlayer();
+        GameStarted = true;
     }
     public void GameEnd() {
         if (resettingGame) return;

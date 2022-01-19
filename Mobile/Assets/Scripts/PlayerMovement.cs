@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour {
     private GravityManager gravityManager;
 
     private Rigidbody rigidBody;
-    private bool gameOver = false;
+    private bool gameOver = true;
     
     private void Start() {
         gv = GameObject.Find("Global").GetComponent<GlobalVariables>();
@@ -30,6 +30,10 @@ public class PlayerMovement : MonoBehaviour {
         if (rigidBody.velocity.x > 0f) {
             rigidBody.AddForce(Vector3.left * gv.HorizontalGravity, ForceMode.Acceleration);
         }
+
+        //if (rigidBody.velocity.x <= 0f && !gameOver) {
+        //    gm.GameEnd();
+        //}
     }
 
     public void StartGamePlayer() {
@@ -37,7 +41,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.tag == "Bound" && (int)rigidBody.velocity.x == 0) gm.GameEnd();
+        //if (collision.gameObject.tag == "Bound" && !gm.GameStarted) rigidBody.velocity = Vector3.zero;
         if (collision.gameObject.tag != "Obstacle") return;
 
         ICollision collisionObject = collision.gameObject.GetComponent<ICollision>();

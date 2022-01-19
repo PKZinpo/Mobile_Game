@@ -9,6 +9,8 @@ public class CameraController : MonoBehaviour {
     [SerializeField] private float zoomScale;
     [SerializeField] private float baseCameraSize;
     [SerializeField] private float smoothCameraSizeSpeed;
+    [SerializeField] private float topBound;
+    [SerializeField] private float bottomBound;
 
     private Camera playerCamera;
     private Rigidbody rigidBody;
@@ -19,16 +21,29 @@ public class CameraController : MonoBehaviour {
     }
 
     private void FixedUpdate() {
+        
+    }
+    private void LateUpdate() {
         playerCamera.orthographicSize = CameraSizeChange(playerCamera.orthographicSize);
 
-        transform.position = player.transform.position + offset;
+        transform.position = player.transform.position + offset + VerticalBoundCheck();
     }
 
     private float CameraSizeChange(float size) { // Function to change camera size according to magnitude of player object velocity
 
-        float targetSize = baseCameraSize + (zoomScale * rigidBody.velocity.magnitude);
+        float targetSize = baseCameraSize + (zoomScale * rigidBody.velocity.x);
         float newSize = Mathf.Lerp(size, targetSize, smoothCameraSizeSpeed * Time.deltaTime);
 
         return newSize;
+    }
+
+    private Vector3 VerticalBoundCheck() {
+
+        float topPos = Mathf.Min(topBound - playerCamera.orthographicSize, player.transform.position.y);
+        float botPos = Mathf.Max(bottomBound + playerCamera.orthographicSize, player.transform.position.y);
+
+        Vector3 verticalOffset = new Vector3(0f, Mathf.Clamp(player.transform.position.y, botPos, topPos) - player.transform.position.y, 0f);
+
+        return verticalOffset;
     }
 }
