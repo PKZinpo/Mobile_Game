@@ -950,8 +950,9 @@ MonoBehaviour:
   zoomScale: 0.2
   baseCameraSize: 5
   smoothCameraSizeSpeed: 5
-  topBound: 17
-  bottomBound: -7
+  topBound: 20
+  bottomBound: -10
+  leftBound: 10
 --- !u!1 &1427501829
 GameObject:
   m_ObjectHideFlags: 0
