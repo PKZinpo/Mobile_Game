@@ -2,6 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class MapSpawn {
+
+    //public int spawnMin;
+    //public int spawnMax;
+    public int spawnIndex;
+    public int spawnNum;
+
+    //public MapSpawn(int min, int max) {
+    //    spawnMin = min;
+    //    spawnMax = max;
+    //}
+}
+
+
 public class ProceduralGeneration : MonoBehaviour {
 
     [Header("Map Generation")]
@@ -9,21 +24,25 @@ public class ProceduralGeneration : MonoBehaviour {
     [SerializeField] private GameObject mapPrefab;
     [SerializeField] private int spawnDistanceMax;
 
+    public delegate void MapSpawnDelegate();
+
     private float dis;
     private int spawnDistance;
     private GameObject start;
 
+    private int randomSpawnMin = 5;
+    private int randomSpawnMax = 10;
+
     [Header("Coin Spawning")]
     [SerializeField] private GameObject coinPrefab;
-    [Range(0.1f, 1f)]
-    [SerializeField] private float coinFrequency;
     [SerializeField] private float coinRadius;
     [SerializeField] private float upperBound;
     [SerializeField] private float lowerBound;
     [SerializeField] private float leftBound;
     [SerializeField] private float rightBound;
-    
 
+    private MapSpawn coinSpawn;
+    
     [Header("Obstacle Spawning")]
     [SerializeField] private GameObject obstaclePrefab;
     [Range(0.1f, 1f)]
@@ -34,6 +53,8 @@ public class ProceduralGeneration : MonoBehaviour {
 
     private void Awake() {
         dis = ceiling.GetComponent<Renderer>().bounds.size.x;
+
+        RandomizeSpawnVariables(coinSpawn);
     }
 
     private void Start() {
@@ -50,18 +71,30 @@ public class ProceduralGeneration : MonoBehaviour {
             }
         }
     }
+    public void RandomizeSpawnVariables(MapSpawn spawn) {
+        spawn.spawnIndex = Random.Range(randomSpawnMin, randomSpawnMax);
+        spawn.spawnNum = 0;
+    }
 
     public void GenerateMap(Vector3 position) {
 
         GameObject map = Instantiate(mapPrefab);
         map.transform.position = new Vector3(position.x + (spawnDistanceMax * dis), position.y, position.z);
 
-        if (Random.Range(0f, 1f) <= obstacleFrequency) {
-            GenerateObstacle(map.transform.position);
-        }
-        if (Random.Range(0f, 1f) <= coinFrequency) {
-            GenerateCoin(map.transform.position);
-        }
+        //if (coinSpawn. < coinSpawnMap) {
+        //    GenerateObstacle(map.transform.position);
+        //    coinSpawnNum++;
+        //}
+        //else {
+
+        //}
+        
+
+
+
+        //if (Random.Range(0f, 1f) <= obstacleFrequency) {
+        //    GenerateObstacle(map.transform.position);
+        //}
         //Debug.Log("[ProceduralGeneration] Generating map");
     }
 

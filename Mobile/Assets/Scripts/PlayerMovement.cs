@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour {
     private GravityManager gravityManager;
 
     private Rigidbody rigidBody;
-    private bool gameOver = true;
+    //private bool gameOver = true;
     
     private void Start() {
         gv = GameObject.Find("Global").GetComponent<GlobalVariables>();
