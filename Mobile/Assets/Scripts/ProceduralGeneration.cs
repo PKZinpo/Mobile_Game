@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +25,11 @@ public class ProceduralGeneration : MonoBehaviour {
     [SerializeField] private GameObject mapPrefab;
     [SerializeField] private int spawnDistanceMax;
 
-    public delegate void MapSpawnDelegate();
+    
+    public delegate void MapSpawnDelegate(Vector3 position);
+
+    //private MapSpawnDelegate MapSpawnFunction;
+    private Action<Vector3> MapSpawnAction;
 
     private float dis;
     private int spawnDistance;
@@ -48,13 +53,16 @@ public class ProceduralGeneration : MonoBehaviour {
     [Range(0.1f, 1f)]
     [SerializeField] private float obstacleFrequency;
     
-
+    private int spawnIndex;
 
 
     private void Awake() {
         dis = ceiling.GetComponent<Renderer>().bounds.size.x;
 
-        RandomizeSpawnVariables(coinSpawn);
+        //RandomizeSpawnVariables(coinSpawn);
+        //MapSpawnFunction = GenerateMap;
+        MapSpawnAction = GenerateObstacle;
+        spawnIndex = 0;
     }
 
     private void Start() {
@@ -71,8 +79,8 @@ public class ProceduralGeneration : MonoBehaviour {
             }
         }
     }
-    public void RandomizeSpawnVariables(MapSpawn spawn) {
-        spawn.spawnIndex = Random.Range(randomSpawnMin, randomSpawnMax);
+    private void RandomizeSpawnVariables(MapSpawn spawn) {
+        spawn.spawnIndex = UnityEngine.Random.Range(randomSpawnMin, randomSpawnMax);
         spawn.spawnNum = 0;
     }
 
@@ -80,6 +88,8 @@ public class ProceduralGeneration : MonoBehaviour {
 
         GameObject map = Instantiate(mapPrefab);
         map.transform.position = new Vector3(position.x + (spawnDistanceMax * dis), position.y, position.z);
+
+        MapSpawnAction(map.transform.position);
 
         //if (coinSpawn. < coinSpawnMap) {
         //    GenerateObstacle(map.transform.position);
@@ -100,15 +110,15 @@ public class ProceduralGeneration : MonoBehaviour {
 
     private void GenerateObstacle(Vector3 position) {
         GameObject obstacle = Instantiate(obstaclePrefab);
-        obstacle.transform.position = new Vector3(position.x + Random.Range(0, dis) - (dis / 2), position.y, position.z);
+        obstacle.transform.position = new Vector3(position.x + UnityEngine.Random.Range(0, dis) - (dis / 2), position.y, position.z);
 
         //obstacle.GetComponent<GravityManager>().
     }
 
     private void GenerateCoin(Vector3 position) {
 
-        Vector3 newPos = new Vector3(Random.Range(position.x + leftBound, position.x + rightBound),
-                                     Random.Range(position.y + lowerBound, position.y + upperBound),
+        Vector3 newPos = new Vector3(UnityEngine.Random.Range(position.x + leftBound, position.x + rightBound),
+                                     UnityEngine.Random.Range(position.y + lowerBound, position.y + upperBound),
                                      position.z);
 
         if (Physics.OverlapSphere(newPos, coinRadius).Length > 0) {
