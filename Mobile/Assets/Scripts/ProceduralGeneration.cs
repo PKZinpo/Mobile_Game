@@ -31,6 +31,11 @@ public class ProceduralGeneration : MonoBehaviour {
     //private MapSpawnDelegate MapSpawnFunction;
     private Action<Vector3> MapSpawnAction;
 
+    public delegate void TestDelegate();
+
+    private TestDelegate testDelegateFunction;
+    private Queue<TestDelegate> testQueue = new Queue<TestDelegate>();
+
     private float dis;
     private int spawnDistance;
     private GameObject start;
@@ -63,6 +68,14 @@ public class ProceduralGeneration : MonoBehaviour {
         //MapSpawnFunction = GenerateMap;
         MapSpawnAction = GenerateObstacle;
         spawnIndex = 0;
+
+        testQueue.Enqueue(TestOne);
+        testQueue.Enqueue(TestTwo);
+
+        while (testQueue.Count > 0) {
+            testDelegateFunction = testQueue.Dequeue();
+            testDelegateFunction();
+        }
     }
 
     private void Start() {
@@ -78,6 +91,13 @@ public class ProceduralGeneration : MonoBehaviour {
                 map.transform.position = targetPos;
             }
         }
+    }
+
+    private void TestOne() {
+        Debug.Log("TestOne Function");
+    }
+    private void TestTwo() {
+        Debug.Log("TestTwo Function");
     }
     private void RandomizeSpawnVariables(MapSpawn spawn) {
         spawn.spawnIndex = UnityEngine.Random.Range(randomSpawnMin, randomSpawnMax);
