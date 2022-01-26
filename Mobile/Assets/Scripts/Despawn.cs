@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Despawn : MonoBehaviour {
 
-    private float despawnDis = 50f;
+    private float despawnDis = 60f;
 
     private GameObject player;
 
@@ -13,9 +13,10 @@ public class Despawn : MonoBehaviour {
     }
 
     private void Update() {
-        float distance = Vector3.Distance(transform.position, player.transform.position);
+        float xdistance = player.transform.position.x - transform.position.x;
+        float ydistance = player.transform.position.y - transform.position.y;
 
-        if (distance > despawnDis && transform.position.x - player.transform.position.x < 0) {
+        if (xdistance > despawnDis || Mathf.Abs(ydistance) > despawnDis) {
             //Debug.Log("[Despawn] Object despawned at " + distance);
             Destroy(gameObject);
         }

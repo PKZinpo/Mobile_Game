@@ -12,6 +12,4 @@ public class Spawnable : ScriptableObject {
     
     public bool gravityOn;
     public bool gravityInverse;
-
-    private int spawnIndex;
 }

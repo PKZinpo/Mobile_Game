@@ -3,22 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class MapSpawn {
+//[System.Serializable]
+//public class MapSpawn {
 
-    //public int spawnMin;
-    //public int spawnMax;
-    public int spawnIndex;
-    public int spawnNum;
+//    //public int spawnMin;
+//    //public int spawnMax;
+//    public int spawnIndex;
+//    public int spawnNum;
 
-    //public MapSpawn(int min, int max) {
-    //    spawnMin = min;
-    //    spawnMax = max;
-    //}
-}
+//    //public MapSpawn(int min, int max) {
+//    //    spawnMin = min;
+//    //    spawnMax = max;
+//    //}
+//}
 
 
-public class ProceduralGeneration : MonoBehaviour {
+public class MapGeneration : MonoBehaviour {
 
     [Header("Map Generation")]
     [SerializeField] private GameObject ceiling;
@@ -26,22 +26,22 @@ public class ProceduralGeneration : MonoBehaviour {
     [SerializeField] private int spawnDistanceMax;
 
     
-    public delegate void MapSpawnDelegate(Vector3 position);
+    public delegate void MapSpawnDelegate(Vector3 position, float dis);
 
-    //private MapSpawnDelegate MapSpawnFunction;
-    private Action<Vector3> MapSpawnAction;
+    private MapSpawnDelegate MapSpawnFunction;
+    private Queue<MapSpawnDelegate> spawnQueue = new Queue<MapSpawnDelegate>();
 
-    public delegate void TestDelegate();
+    //public delegate void TestDelegate();
 
-    private TestDelegate testDelegateFunction;
-    private Queue<TestDelegate> testQueue = new Queue<TestDelegate>();
+    //private TestDelegate testDelegateFunction;
+    //private Queue<TestDelegate> testQueue = new Queue<TestDelegate>();
 
     private float dis;
     private int spawnDistance;
     private GameObject start;
 
-    private int randomSpawnMin = 5;
-    private int randomSpawnMax = 10;
+    //private int randomSpawnMin = 5;
+    //private int randomSpawnMax = 10;
 
     [Header("Coin Spawning")]
     [SerializeField] private GameObject coinPrefab;
@@ -51,14 +51,12 @@ public class ProceduralGeneration : MonoBehaviour {
     [SerializeField] private float leftBound;
     [SerializeField] private float rightBound;
 
-    private MapSpawn coinSpawn;
+    //private MapSpawn coinSpawn;
     
     [Header("Obstacle Spawning")]
     [SerializeField] private GameObject obstaclePrefab;
     [Range(0.1f, 1f)]
     [SerializeField] private float obstacleFrequency;
-    
-    private int spawnIndex;
 
 
     private void Awake() {
@@ -66,16 +64,15 @@ public class ProceduralGeneration : MonoBehaviour {
 
         //RandomizeSpawnVariables(coinSpawn);
         //MapSpawnFunction = GenerateMap;
-        MapSpawnAction = GenerateObstacle;
-        spawnIndex = 0;
+        //MapSpawnAction = GenerateObstacle;
 
-        testQueue.Enqueue(TestOne);
-        testQueue.Enqueue(TestTwo);
+        //testQueue.Enqueue(TestOne);
+        //testQueue.Enqueue(TestTwo);
 
-        while (testQueue.Count > 0) {
-            testDelegateFunction = testQueue.Dequeue();
-            testDelegateFunction();
-        }
+        //while (testQueue.Count > 0) {
+        //    testDelegateFunction = testQueue.Dequeue();
+        //    testDelegateFunction();
+        //}
     }
 
     private void Start() {
@@ -84,7 +81,7 @@ public class ProceduralGeneration : MonoBehaviour {
         for (spawnDistance = 0; spawnDistance < spawnDistanceMax; spawnDistance++) {
             Vector3 targetPos = new Vector3(start.transform.position.x + (spawnDistance * dis), start.transform.position.y, start.transform.position.z);
             if (Physics.Raycast(targetPos, transform.TransformDirection(Vector3.down), Mathf.Infinity)) {
-                Debug.Log("[ProceduralGeneration] Map exists");
+                Debug.Log("[MapGeneration] Map exists");
             }
             else {
                 GameObject map = Instantiate(mapPrefab);
@@ -93,23 +90,29 @@ public class ProceduralGeneration : MonoBehaviour {
         }
     }
 
-    private void TestOne() {
-        Debug.Log("TestOne Function");
-    }
-    private void TestTwo() {
-        Debug.Log("TestTwo Function");
-    }
-    private void RandomizeSpawnVariables(MapSpawn spawn) {
-        spawn.spawnIndex = UnityEngine.Random.Range(randomSpawnMin, randomSpawnMax);
-        spawn.spawnNum = 0;
-    }
+    //private void TestOne() {
+    //    Debug.Log("TestOne Function");
+    //}
+    //private void TestTwo() {
+    //    Debug.Log("TestTwo Function");
+    //}
+    //private void RandomizeSpawnVariables(MapSpawn spawn) {
+    //    spawn.spawnIndex = UnityEngine.Random.Range(randomSpawnMin, randomSpawnMax);
+    //    spawn.spawnNum = 0;
+    //}
 
     public void GenerateMap(Vector3 position) {
 
         GameObject map = Instantiate(mapPrefab);
         map.transform.position = new Vector3(position.x + (spawnDistanceMax * dis), position.y, position.z);
 
-        MapSpawnAction(map.transform.position);
+        if (spawnQueue.Count > 0) {
+            MapSpawnFunction = spawnQueue.Dequeue();
+            MapSpawnFunction(map.transform.position, dis);
+        }
+
+
+        //MapSpawnAction(map.transform.position);
 
         //if (coinSpawn. < coinSpawnMap) {
         //    GenerateObstacle(map.transform.position);
@@ -119,8 +122,6 @@ public class ProceduralGeneration : MonoBehaviour {
 
         //}
         
-
-
 
         //if (Random.Range(0f, 1f) <= obstacleFrequency) {
         //    GenerateObstacle(map.transform.position);
@@ -142,11 +143,11 @@ public class ProceduralGeneration : MonoBehaviour {
                                      position.z);
 
         if (Physics.OverlapSphere(newPos, coinRadius).Length > 0) {
-            Debug.Log("[ProceduralGeneration] Object in position, finding new position for coin");
+            Debug.Log("[MapGeneration] Object in position, finding new position for coin");
             GenerateCoin(position);
         }
         else {
-            Debug.Log("[ProceduralGeneration] Position found");
+            Debug.Log("[MapGeneration] Position found");
             GameObject coin = Instantiate(coinPrefab);
             coin.transform.position = newPos;
         }
