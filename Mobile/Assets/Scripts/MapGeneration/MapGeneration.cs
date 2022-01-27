@@ -3,21 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//[System.Serializable]
-//public class MapSpawn {
-
-//    //public int spawnMin;
-//    //public int spawnMax;
-//    public int spawnIndex;
-//    public int spawnNum;
-
-//    //public MapSpawn(int min, int max) {
-//    //    spawnMin = min;
-//    //    spawnMax = max;
-//    //}
-//}
-
-
 public class MapGeneration : MonoBehaviour {
 
     [Header("Map Generation")]
@@ -26,22 +11,15 @@ public class MapGeneration : MonoBehaviour {
     [SerializeField] private int spawnDistanceMax;
 
     
-    public delegate void MapSpawnDelegate(Vector3 position, float dis);
+    public delegate void MapSpawnDelegate(Vector3 position, float xDis, float yDis);
 
     private MapSpawnDelegate MapSpawnFunction;
     private Queue<MapSpawnDelegate> spawnQueue = new Queue<MapSpawnDelegate>();
 
-    //public delegate void TestDelegate();
-
-    //private TestDelegate testDelegateFunction;
-    //private Queue<TestDelegate> testQueue = new Queue<TestDelegate>();
-
-    private float dis;
+    private float xDis;
+    private float yDis;
     private int spawnDistance;
     private GameObject start;
-
-    //private int randomSpawnMin = 5;
-    //private int randomSpawnMax = 10;
 
     [Header("Coin Spawning")]
     [SerializeField] private GameObject coinPrefab;
@@ -51,8 +29,6 @@ public class MapGeneration : MonoBehaviour {
     [SerializeField] private float leftBound;
     [SerializeField] private float rightBound;
 
-    //private MapSpawn coinSpawn;
-    
     [Header("Obstacle Spawning")]
     [SerializeField] private GameObject obstaclePrefab;
     [Range(0.1f, 1f)]
@@ -60,26 +36,15 @@ public class MapGeneration : MonoBehaviour {
 
 
     private void Awake() {
-        dis = ceiling.GetComponent<Renderer>().bounds.size.x;
-
-        //RandomizeSpawnVariables(coinSpawn);
-        //MapSpawnFunction = GenerateMap;
-        //MapSpawnAction = GenerateObstacle;
-
-        //testQueue.Enqueue(TestOne);
-        //testQueue.Enqueue(TestTwo);
-
-        //while (testQueue.Count > 0) {
-        //    testDelegateFunction = testQueue.Dequeue();
-        //    testDelegateFunction();
-        //}
+        xDis = ceiling.GetComponent<Renderer>().bounds.size.x;
+        yDis = 10f - ceiling.GetComponent<Renderer>().bounds.size.y;
     }
 
     private void Start() {
         start = GameObject.FindGameObjectWithTag("Start");
 
         for (spawnDistance = 0; spawnDistance < spawnDistanceMax; spawnDistance++) {
-            Vector3 targetPos = new Vector3(start.transform.position.x + (spawnDistance * dis), start.transform.position.y, start.transform.position.z);
+            Vector3 targetPos = new Vector3(start.transform.position.x + (spawnDistance * xDis), start.transform.position.y, start.transform.position.z);
             if (Physics.Raycast(targetPos, transform.TransformDirection(Vector3.down), Mathf.Infinity)) {
                 Debug.Log("[MapGeneration] Map exists");
             }
@@ -90,50 +55,22 @@ public class MapGeneration : MonoBehaviour {
         }
     }
 
-    //private void TestOne() {
-    //    Debug.Log("TestOne Function");
-    //}
-    //private void TestTwo() {
-    //    Debug.Log("TestTwo Function");
-    //}
-    //private void RandomizeSpawnVariables(MapSpawn spawn) {
-    //    spawn.spawnIndex = UnityEngine.Random.Range(randomSpawnMin, randomSpawnMax);
-    //    spawn.spawnNum = 0;
-    //}
-
     public void GenerateMap(Vector3 position) {
 
         GameObject map = Instantiate(mapPrefab);
-        map.transform.position = new Vector3(position.x + (spawnDistanceMax * dis), position.y, position.z);
+        map.transform.position = new Vector3(position.x + (spawnDistanceMax * xDis), position.y, position.z);
 
         if (spawnQueue.Count > 0) {
             MapSpawnFunction = spawnQueue.Dequeue();
-            MapSpawnFunction(map.transform.position, dis);
+            MapSpawnFunction(map.transform.position, xDis, yDis);
         }
 
-
-        //MapSpawnAction(map.transform.position);
-
-        //if (coinSpawn. < coinSpawnMap) {
-        //    GenerateObstacle(map.transform.position);
-        //    coinSpawnNum++;
-        //}
-        //else {
-
-        //}
-        
-
-        //if (Random.Range(0f, 1f) <= obstacleFrequency) {
-        //    GenerateObstacle(map.transform.position);
-        //}
-        //Debug.Log("[ProceduralGeneration] Generating map");
     }
 
     private void GenerateObstacle(Vector3 position) {
         GameObject obstacle = Instantiate(obstaclePrefab);
-        obstacle.transform.position = new Vector3(position.x + UnityEngine.Random.Range(0, dis) - (dis / 2), position.y, position.z);
+        obstacle.transform.position = new Vector3(position.x + UnityEngine.Random.Range(0, xDis) - (xDis / 2), position.y, position.z);
 
-        //obstacle.GetComponent<GravityManager>().
     }
 
     private void GenerateCoin(Vector3 position) {
@@ -151,5 +88,8 @@ public class MapGeneration : MonoBehaviour {
             GameObject coin = Instantiate(coinPrefab);
             coin.transform.position = newPos;
         }
+    }
+    public void AddToSpawnQueue(MapSpawnDelegate function) {
+        spawnQueue.Enqueue(function);
     }
 }
