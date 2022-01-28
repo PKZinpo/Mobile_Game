@@ -37,7 +37,7 @@ public class MapGeneration : MonoBehaviour {
 
     private void Awake() {
         xDis = ceiling.GetComponent<Renderer>().bounds.size.x;
-        yDis = 10f - ceiling.GetComponent<Renderer>().bounds.size.y;
+        yDis = 20f - ceiling.GetComponent<Renderer>().bounds.size.y;
     }
 
     private void Start() {

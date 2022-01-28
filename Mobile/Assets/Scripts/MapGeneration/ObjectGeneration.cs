@@ -13,7 +13,7 @@ public class ObjectGeneration : MonoBehaviour {
     private int parentSpawnIndexMax;
     private bool gravityOn;
     private bool gravityInverse;
-    private float spawnLeeway = 3f;
+    private float spawnLeeway = 1f;
 
     
 
@@ -25,8 +25,6 @@ public class ObjectGeneration : MonoBehaviour {
         parentSpawnIndexMax = spawnable.parentSpawnIndexMax;
         gravityOn = spawnable.gravityOn;
         gravityInverse = spawnable.gravityInverse;
-
-        mgObject.AddToSpawnQueue(SpawnObject);
     }
 
     public void SpawnObject(Vector3 position, float xDis, float yDis) {
@@ -39,7 +37,7 @@ public class ObjectGeneration : MonoBehaviour {
                                        position.y - (yDis / 2) + (objectCollider.bounds.extents.y + spawnLeeway),
                                        position.y + (yDis / 2) - (objectCollider.bounds.extents.y + spawnLeeway));
 
-        Debug.Log("[ObjectGeneration] Spawn position at " + new Vector3(randomxPos, randomyPos, position.z));
+        //Debug.Log("[ObjectGeneration] Spawn position at " + new Vector3(randomxPos, randomyPos, position.z));
 
         obstacle.transform.position = new Vector3(randomxPos, randomyPos, position.z);
     }
