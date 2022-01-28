@@ -9,10 +9,7 @@ public class ObjectGeneration : MonoBehaviour {
     private MapGeneration mgObject;
     private Collider objectCollider;
     private int spawnIndex;
-    private int parentSpawnIndexMin;
-    private int parentSpawnIndexMax;
-    private bool gravityOn;
-    private bool gravityInverse;
+    private int targetSpawnIndex;
     private float spawnLeeway = 1f;
 
     
@@ -21,10 +18,32 @@ public class ObjectGeneration : MonoBehaviour {
         mgObject = GameObject.Find("MapGeneration").GetComponent<MapGeneration>();
         objectCollider = spawnable.objectToSpawn.GetComponent<Collider>();
 
-        parentSpawnIndexMin = spawnable.parentSpawnIndexMin;
-        parentSpawnIndexMax = spawnable.parentSpawnIndexMax;
-        gravityOn = spawnable.gravityOn;
-        gravityInverse = spawnable.gravityInverse;
+        if (spawnable.parentSpawnIndexMin == 0 && spawnable.parentSpawnIndexMax == 0) {
+            targetSpawnIndex = 0;
+        }
+        else {
+            targetSpawnIndex = Random.Range(spawnable.parentSpawnIndexMin, spawnable.parentSpawnIndexMax);
+        }
+    }
+
+    public void ObjectPrepareForQueue() {
+        spawnIndex++;
+        if (targetSpawnIndex != 0) {
+            if (transform.parent.GetComponent<ObjectGeneration>().GetSpawnIndex() % targetSpawnIndex == 0) {
+                mgObject.AddToSpawnQueue(SpawnObject);
+                targetSpawnIndex = Random.Range(spawnable.parentSpawnIndexMin, spawnable.parentSpawnIndexMax);
+                spawnIndex = 0;
+                if (transform.childCount > 0) {
+                    transform.GetChild(0).GetComponent<ObjectGeneration>().ObjectPrepareForQueue();
+                }
+            }
+        }
+        else {
+            mgObject.AddToSpawnQueue(SpawnObject);
+            if (transform.childCount > 0) {
+                transform.GetChild(0).GetComponent<ObjectGeneration>().ObjectPrepareForQueue();
+            }
+        }
     }
 
     public void SpawnObject(Vector3 position, float xDis, float yDis) {
@@ -37,9 +56,18 @@ public class ObjectGeneration : MonoBehaviour {
                                        position.y - (yDis / 2) + (objectCollider.bounds.extents.y + spawnLeeway),
                                        position.y + (yDis / 2) - (objectCollider.bounds.extents.y + spawnLeeway));
 
-        //Debug.Log("[ObjectGeneration] Spawn position at " + new Vector3(randomxPos, randomyPos, position.z));
+        Debug.Log("[ObjectGeneration] " + spawnable.objectToSpawn.name + "Spawn position at " + new Vector3(randomxPos, randomyPos, position.z));
 
         obstacle.transform.position = new Vector3(randomxPos, randomyPos, position.z);
+
+        if (spawnable.gravityOn) {
+            obstacle.GetComponent<GravityManager>().RandomGravity();
+        }
+        
+    }
+
+    public int GetSpawnIndex() {
+        return spawnIndex;
     }
 
 }

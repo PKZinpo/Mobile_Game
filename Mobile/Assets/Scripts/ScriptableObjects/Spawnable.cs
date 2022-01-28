@@ -11,5 +11,4 @@ public class Spawnable : ScriptableObject {
     public int parentSpawnIndexMax;
     
     public bool gravityOn;
-    public bool gravityInverse;
 }

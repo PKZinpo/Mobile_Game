@@ -21,6 +21,8 @@ public class MapGeneration : MonoBehaviour {
     private int spawnDistance;
     private GameObject start;
 
+    private ObjectGeneration mainObstacleGeneration;
+
     [Header("Coin Spawning")]
     [SerializeField] private GameObject coinPrefab;
     [SerializeField] private float coinRadius;
@@ -38,6 +40,8 @@ public class MapGeneration : MonoBehaviour {
     private void Awake() {
         xDis = ceiling.GetComponent<Renderer>().bounds.size.x;
         yDis = 20f - ceiling.GetComponent<Renderer>().bounds.size.y;
+
+        mainObstacleGeneration = transform.GetChild(0).GetComponent<ObjectGeneration>();
     }
 
     private void Start() {
@@ -64,7 +68,7 @@ public class MapGeneration : MonoBehaviour {
             MapSpawnFunction = spawnQueue.Dequeue();
             MapSpawnFunction(map.transform.position, xDis, yDis);
         }
-
+        mainObstacleGeneration.ObjectPrepareForQueue();
     }
 
     private void GenerateObstacle(Vector3 position) {
