@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnergyCoin : MonoBehaviour, ITrigger {
     public void Trigger() {
-        Debug.Log("[EnergyCoin] Energy coin aqcuired");
+        Debug.Log("[EnergyCoin] Energy coin acquired");
         Destroy(gameObject);
     }
 }

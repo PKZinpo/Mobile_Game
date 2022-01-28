@@ -10,7 +10,6 @@ public class MapGeneration : MonoBehaviour {
     [SerializeField] private GameObject mapPrefab;
     [SerializeField] private int spawnDistanceMax;
 
-    
     public delegate void MapSpawnDelegate(Vector3 position, float xDis, float yDis);
 
     private MapSpawnDelegate MapSpawnFunction;
@@ -22,20 +21,6 @@ public class MapGeneration : MonoBehaviour {
     private GameObject start;
 
     private ObjectGeneration mainObstacleGeneration;
-
-    [Header("Coin Spawning")]
-    [SerializeField] private GameObject coinPrefab;
-    [SerializeField] private float coinRadius;
-    [SerializeField] private float upperBound;
-    [SerializeField] private float lowerBound;
-    [SerializeField] private float leftBound;
-    [SerializeField] private float rightBound;
-
-    [Header("Obstacle Spawning")]
-    [SerializeField] private GameObject obstaclePrefab;
-    [Range(0.1f, 1f)]
-    [SerializeField] private float obstacleFrequency;
-
 
     private void Awake() {
         xDis = ceiling.GetComponent<Renderer>().bounds.size.x;
@@ -69,29 +54,6 @@ public class MapGeneration : MonoBehaviour {
             MapSpawnFunction(map.transform.position, xDis, yDis);
         }
         mainObstacleGeneration.ObjectPrepareForQueue();
-    }
-
-    private void GenerateObstacle(Vector3 position) {
-        GameObject obstacle = Instantiate(obstaclePrefab);
-        obstacle.transform.position = new Vector3(position.x + UnityEngine.Random.Range(0, xDis) - (xDis / 2), position.y, position.z);
-
-    }
-
-    private void GenerateCoin(Vector3 position) {
-
-        Vector3 newPos = new Vector3(UnityEngine.Random.Range(position.x + leftBound, position.x + rightBound),
-                                     UnityEngine.Random.Range(position.y + lowerBound, position.y + upperBound),
-                                     position.z);
-
-        if (Physics.OverlapSphere(newPos, coinRadius).Length > 0) {
-            Debug.Log("[MapGeneration] Object in position, finding new position for coin");
-            GenerateCoin(position);
-        }
-        else {
-            Debug.Log("[MapGeneration] Position found");
-            GameObject coin = Instantiate(coinPrefab);
-            coin.transform.position = newPos;
-        }
     }
     public void AddToSpawnQueue(MapSpawnDelegate function) {
         spawnQueue.Enqueue(function);
