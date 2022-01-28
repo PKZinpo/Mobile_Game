@@ -8,6 +8,7 @@ TagManager:
   - Start
   - Obstacle
   - Bound
+  - MapParent
   layers:
   - Default
   - TransparentFX

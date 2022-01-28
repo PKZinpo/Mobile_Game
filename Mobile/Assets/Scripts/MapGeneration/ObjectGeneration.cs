@@ -12,9 +12,12 @@ public class ObjectGeneration : MonoBehaviour {
     private int targetSpawnIndex;
     private float spawnLeeway = 1f;
 
+    private Transform mapParentTransform;
+
     private void Start() {
-        mgObject = GameObject.Find("MapGeneration").GetComponent<MapGeneration>();
+        mgObject = GameObject.FindGameObjectWithTag("MapGeneration").GetComponent<MapGeneration>();
         objectRenderer = spawnable.objectToSpawn.GetComponent<Renderer>();
+        mapParentTransform = GameObject.FindGameObjectWithTag("MapParent").transform;
 
         if (spawnable.parentSpawnIndexMin == 0 && spawnable.parentSpawnIndexMax == 0) {
             targetSpawnIndex = 0;
@@ -40,7 +43,7 @@ public class ObjectGeneration : MonoBehaviour {
     }
 
     public void SpawnObject(Vector3 position, float xDis, float yDis) {
-        GameObject obstacle = Instantiate(spawnable.objectToSpawn);
+        GameObject obstacle = Instantiate(spawnable.objectToSpawn, mapParentTransform);
 
         float randomxPos = Mathf.Clamp(position.x + Random.Range(0, xDis) - (xDis / 2),
                                        position.x - (xDis / 2) + (objectRenderer.bounds.extents.x + spawnLeeway),

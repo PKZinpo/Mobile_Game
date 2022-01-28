@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class MapGeneration : MonoBehaviour {
 
+    public delegate void MapSpawnDelegate(Vector3 position, float xDis, float yDis);
+
     [Header("Map Generation")]
     [SerializeField] private GameObject ceiling;
     [SerializeField] private GameObject mapPrefab;
     [SerializeField] private int spawnDistanceMax;
-
-    public delegate void MapSpawnDelegate(Vector3 position, float xDis, float yDis);
 
     private MapSpawnDelegate MapSpawnFunction;
     private Queue<MapSpawnDelegate> spawnQueue = new Queue<MapSpawnDelegate>();
@@ -21,12 +21,14 @@ public class MapGeneration : MonoBehaviour {
     private GameObject start;
 
     private ObjectGeneration mainObstacleGeneration;
+    private Transform mapParentTransform;
 
     private void Awake() {
         xDis = ceiling.GetComponent<Renderer>().bounds.size.x;
         yDis = 20f - ceiling.GetComponent<Renderer>().bounds.size.y;
 
         mainObstacleGeneration = transform.GetChild(0).GetComponent<ObjectGeneration>();
+        mapParentTransform = GameObject.FindGameObjectWithTag("MapParent").transform;
     }
 
     private void Start() {
@@ -38,7 +40,7 @@ public class MapGeneration : MonoBehaviour {
                 Debug.Log("[MapGeneration] Map exists");
             }
             else {
-                GameObject map = Instantiate(mapPrefab);
+                GameObject map = Instantiate(mapPrefab, mapParentTransform);
                 map.transform.position = targetPos;
             }
         }
@@ -46,7 +48,7 @@ public class MapGeneration : MonoBehaviour {
 
     public void GenerateMap(Vector3 position) {
 
-        GameObject map = Instantiate(mapPrefab);
+        GameObject map = Instantiate(mapPrefab, mapParentTransform);
         map.transform.position = new Vector3(position.x + (spawnDistanceMax * xDis), position.y, position.z);
 
         if (spawnQueue.Count > 0) {
