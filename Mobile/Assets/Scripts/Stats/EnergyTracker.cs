@@ -21,4 +21,8 @@ public class EnergyTracker : MonoBehaviour {
         Vector3 newScale = new Vector3(psm.PlayerEnergy / 100f, 1f, 1f);
         energyBar.localScale = newScale;
     }
+
+    private void OnDestroy() {
+        psm.OnChangeEnergy -= OnEnergyUpdate;
+    }
 }

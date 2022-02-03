@@ -478,7 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f360d72777d383541bb5fc7be07742bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_verticalGravity: 0
+  m_verticalGravity: 80
   m_horizontalGravity: 0
   m_maxVerticalVelocity: 20
   m_startImpulse: 30
@@ -2101,7 +2101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 515f8f60e0c1ba94388f42a419df4393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energyLossRate: 0.01
+  energyLossRate: 0.2
 --- !u!1 &1946270879
 GameObject:
   m_ObjectHideFlags: 0

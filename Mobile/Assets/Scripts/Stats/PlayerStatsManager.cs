@@ -20,7 +20,7 @@ public class PlayerStatsManager : MonoBehaviour {
     public event EventHandler OnAddScore;
     public event EventHandler OnChangeEnergy;
 
-    [Range(0f, 3f)]
+    [Range(0f, 1f)]
     [SerializeField] private float energyLossRate;
     
     private GameManager gm;
@@ -32,7 +32,7 @@ public class PlayerStatsManager : MonoBehaviour {
         gm.OnGameStart += OnStartGamePlayerStats;
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         if (!gm.GameStarted) return;
 
         if (PlayerEnergy > 0f) {
@@ -52,5 +52,10 @@ public class PlayerStatsManager : MonoBehaviour {
     public void AddEnergy(float val) {
         PlayerEnergy += val;
         OnChangeEnergy?.Invoke(this, EventArgs.Empty);
+        
+        if (PlayerEnergy == 0f) {
+            gm.GameEnd();
+        }
+
     }
 }

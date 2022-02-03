@@ -20,10 +20,11 @@ public class PlayerMovement : MonoBehaviour {
         rigidBody = GetComponent<Rigidbody>();
 
         gm.OnGameStart += OnStartGamePlayer;
+        gm.OnGameEnd += OnEndGamePlayer;
     }
 
     private void FixedUpdate() {
-        if (!gm.GameStarted) return;
+        if (!gm.GameStarted || gm.GameEnded) return;
 
         if (Input.GetMouseButton(0)) {
             gravityManager.InvertGravity = true;
@@ -39,12 +40,16 @@ public class PlayerMovement : MonoBehaviour {
 
     }
 
-    public void OnStartGamePlayer(object sender, EventArgs e) {
+    private void OnStartGamePlayer(object sender, EventArgs e) {
         rigidBody.AddForce(Vector3.right * gv.StartImpulse, ForceMode.Impulse);
     }
+
+    private void OnEndGamePlayer(object sender, EventArgs e) {
+        rigidBody.velocity = Vector3.zero;
+    }
+
     private void OnCollisionEnter(Collision collision) {
-        //if (collision.gameObject.tag == "Bound" && !gm.GameStarted) rigidBody.velocity = Vector3.zero;
-        if (collision.gameObject.tag != "Obstacle") return;
+        if (gm.GameEnded) return;
 
         ICollision collisionObject = collision.gameObject.GetComponent<ICollision>();
         if (collisionObject != null) {
@@ -53,10 +58,16 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider trigger) {
+        if (gm.GameEnded) return;
 
         ITrigger triggerObject = trigger.gameObject.GetComponent<ITrigger>();
         if (triggerObject != null) {
             triggerObject.Trigger();
         }
+    }
+
+    private void OnDestroy() {
+        gm.OnGameStart -= OnStartGamePlayer;
+        gm.OnGameEnd -= OnEndGamePlayer;
     }
 }
