@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,8 +11,11 @@ public class GameManager : MonoBehaviour {
 
     public bool GameStarted { get { return gameStarted; } set { gameStarted = value; } }
 
+    public event EventHandler OnGameStart;
+    //public event EventHandler OnGameEnd;
+
     public void StartGame() {
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().StartGamePlayer();
+        OnGameStart?.Invoke(this, EventArgs.Empty);
         GameStarted = true;
     }
     public void GameEnd() {

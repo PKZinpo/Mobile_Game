@@ -7,7 +7,6 @@ public class ObjectGeneration : MonoBehaviour {
     [SerializeField] private Spawnable spawnable;
 
     private MapGeneration mgObject;
-    private Renderer objectRenderer;
     private int spawnIndex;
     private int targetSpawnIndex;
     private float spawnLeeway = 1f;
@@ -16,7 +15,6 @@ public class ObjectGeneration : MonoBehaviour {
 
     private void Start() {
         mgObject = GameObject.FindGameObjectWithTag("MapGeneration").GetComponent<MapGeneration>();
-        objectRenderer = spawnable.objectToSpawn.GetComponent<Renderer>();
         mapParentTransform = GameObject.FindGameObjectWithTag("MapParent").transform;
 
         if (spawnable.parentSpawnIndexMin == 0 && spawnable.parentSpawnIndexMax == 0) {
@@ -43,7 +41,11 @@ public class ObjectGeneration : MonoBehaviour {
     }
 
     public void SpawnObject(Vector3 position, float xDis, float yDis) {
-        GameObject obstacle = Instantiate(spawnable.objectToSpawn, mapParentTransform);
+
+        GameObject objectToSpawn = spawnable.objects[Random.Range(0, spawnable.objects.Length)];
+        GameObject obstacle = Instantiate(objectToSpawn, mapParentTransform);
+
+        Renderer objectRenderer = objectToSpawn.GetComponent<Renderer>();
 
         float randomxPos = Mathf.Clamp(position.x + Random.Range(0, xDis) - (xDis / 2),
                                        position.x - (xDis / 2) + (objectRenderer.bounds.extents.x + spawnLeeway),

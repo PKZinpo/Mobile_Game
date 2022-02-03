@@ -9,6 +9,9 @@ TagManager:
   - Obstacle
   - Bound
   - MapParent
+  - GameManager
+  - Global
+  - PlayerStats
   layers:
   - Default
   - TransparentFX

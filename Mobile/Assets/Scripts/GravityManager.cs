@@ -16,8 +16,8 @@ public class GravityManager : MonoBehaviour {
     public float Gravity { get { return gravity; } set { gravity = value; } }
 
     private void Awake() {
-        gv = GameObject.Find("Global").GetComponent<GlobalVariables>();
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gv = GameObject.FindGameObjectWithTag("Global").GetComponent<GlobalVariables>();
+        gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
         rigidBody = GetComponent<Rigidbody>();
 

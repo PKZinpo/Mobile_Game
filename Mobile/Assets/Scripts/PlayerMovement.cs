@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
@@ -5,16 +6,20 @@ public class PlayerMovement : MonoBehaviour {
     private GlobalVariables gv;
     private GameManager gm;
     private GravityManager gravityManager;
+    private PlayerStatsManager psm;
 
     private Rigidbody rigidBody;
     //private bool gameOver = true;
     
     private void Start() {
-        gv = GameObject.Find("Global").GetComponent<GlobalVariables>();
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gv = GameObject.FindGameObjectWithTag("Global").GetComponent<GlobalVariables>();
+        gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        psm = GameObject.FindGameObjectWithTag("PlayerStats").GetComponent<PlayerStatsManager>();
 
         gravityManager = GetComponent<GravityManager>();
         rigidBody = GetComponent<Rigidbody>();
+
+        gm.OnGameStart += OnStartGamePlayer;
     }
 
     private void FixedUpdate() {
@@ -29,17 +34,14 @@ public class PlayerMovement : MonoBehaviour {
 
         if (rigidBody.velocity.x > 0f) {
             rigidBody.AddForce(Vector3.left * gv.HorizontalGravity, ForceMode.Acceleration);
+            psm.AddScore(rigidBody.velocity.x);
         }
 
-        //if (rigidBody.velocity.x <= 0f && !gameOver) {
-        //    gm.GameEnd();
-        //}
     }
 
-    public void StartGamePlayer() {
+    public void OnStartGamePlayer(object sender, EventArgs e) {
         rigidBody.AddForce(Vector3.right * gv.StartImpulse, ForceMode.Impulse);
     }
-
     private void OnCollisionEnter(Collision collision) {
         //if (collision.gameObject.tag == "Bound" && !gm.GameStarted) rigidBody.velocity = Vector3.zero;
         if (collision.gameObject.tag != "Obstacle") return;
