@@ -15,6 +15,7 @@ MonoBehaviour:
   objects:
   - {fileID: 7721836668621031162, guid: e81fe759fce0bf64d95c744d3a51dd4d, type: 3}
   - {fileID: 7721836668621031162, guid: bbaccc2cb6007e949932ebbb7add029a, type: 3}
+  - {fileID: 5778304185673839024, guid: 298d6b445b1b8d546a12568ad25c567d, type: 3}
   parentSpawnIndexMin: 0
   parentSpawnIndexMax: 0
   gravityOn: 1

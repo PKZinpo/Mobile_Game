@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour, ICollision {
 
-    //private void Start() {
-    //    GetComponent<GravityManager>().RandomGravity();
-    //}
+    public void CheckRotation() {
+        if (name.Contains("Tri")) { 
+            if (GetComponent<GravityManager>().InvertGravity) {
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z + 180f);
+            }
+        }
+    }
     public void Collision() {
         GetComponent<Collider>().enabled = false;
     }

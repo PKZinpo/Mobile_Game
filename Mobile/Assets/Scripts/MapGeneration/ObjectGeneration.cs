@@ -43,7 +43,7 @@ public class ObjectGeneration : MonoBehaviour {
     public void SpawnObject(Vector3 position, float xDis, float yDis) {
 
         GameObject objectToSpawn = spawnable.objects[Random.Range(0, spawnable.objects.Length)];
-        GameObject obstacle = Instantiate(objectToSpawn, mapParentTransform);
+        GameObject mapObject = Instantiate(objectToSpawn, mapParentTransform);
 
         Renderer objectRenderer = objectToSpawn.GetComponent<Renderer>();
 
@@ -56,12 +56,15 @@ public class ObjectGeneration : MonoBehaviour {
 
         //Debug.Log("[ObjectGeneration] " + spawnable.objectToSpawn.name + "Spawn position at " + new Vector3(randomxPos, randomyPos, position.z));
 
-        obstacle.transform.position = new Vector3(randomxPos, randomyPos, position.z);
+        mapObject.transform.position = new Vector3(randomxPos, randomyPos, position.z);
 
         if (spawnable.gravityOn) {
-            obstacle.GetComponent<GravityManager>().RandomGravity();
+            mapObject.GetComponent<GravityManager>().RandomGravity();
         }
         
+        if (mapObject.tag == "Obstacle") {
+            mapObject.GetComponent<Obstacle>().CheckRotation();
+        }
     }
     public int GetSpawnIndex() {
         return spawnIndex;
