@@ -9,6 +9,7 @@ public class ObjectGeneration : MonoBehaviour {
     private MapGeneration mgObject;
     private int spawnIndex;
     private int targetSpawnIndex;
+    private int spawnedIndex;
     private float spawnLeeway = 1f;
 
     private Transform mapParentTransform;
@@ -23,20 +24,24 @@ public class ObjectGeneration : MonoBehaviour {
         else {
             ResetSpawnIndex();
         }
+
+        spawnedIndex = 0;
     }
 
     public void ObjectPrepareForQueue() {
-        spawnIndex++;
         if (targetSpawnIndex != 0) {
-            if (transform.parent.GetComponent<ObjectGeneration>().GetSpawnIndex() % targetSpawnIndex == 0) {
+            if (transform.parent.GetComponent<ObjectGeneration>().GetSpawnIndex() - spawnedIndex >= targetSpawnIndex) {
                 mgObject.AddToSpawnQueue(SpawnObject);
                 ResetSpawnIndex();
                 ChildObjectPrepareQueue();
+                spawnIndex++;
+                spawnedIndex = transform.parent.GetComponent<ObjectGeneration>().GetSpawnIndex();
             }
         }
         else {
             mgObject.AddToSpawnQueue(SpawnObject);
             ChildObjectPrepareQueue();
+            spawnIndex++;
         }
     }
 
