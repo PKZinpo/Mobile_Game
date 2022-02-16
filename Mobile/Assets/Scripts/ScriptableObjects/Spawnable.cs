@@ -13,9 +13,9 @@ public class Spawnable : ScriptableObject {
 
     public int parentSpawnIndexMin;
     public int parentSpawnIndexMax;
-    
-    public bool gravityOn;
-    public bool randomGravity;
+
+    [HideInInspector] public bool randomizeGravityOn;
+    [HideInInspector] public bool gravityOn;
 }
 
 #if UNITY_EDITOR
@@ -28,15 +28,12 @@ public class Spawnable_Editor : Editor {
 
         Spawnable script = (Spawnable)target;
 
-        script.randomGravity = EditorGUILayout.Toggle("Random Gravity", script.randomGravity);
+        script.randomizeGravityOn = EditorGUILayout.Toggle("Random Gravity", script.randomizeGravityOn);
 
-        if (script.randomGravity) {
-            //script.gravityOn = EditorGUILayout.
+        if (!script.randomizeGravityOn) {
+            script.gravityOn = EditorGUILayout.Toggle("Gravity On", script.gravityOn);
         }
-
     }
-
-
 }
 
 

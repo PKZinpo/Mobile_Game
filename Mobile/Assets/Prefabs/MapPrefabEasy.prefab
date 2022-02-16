@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4003491700827712915}
   - component: {fileID: 2346219592416128311}
   m_Layer: 0
-  m_Name: MapPrefab
+  m_Name: MapPrefabEasy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

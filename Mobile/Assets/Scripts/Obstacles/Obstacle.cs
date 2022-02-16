@@ -13,5 +13,6 @@ public class Obstacle : MonoBehaviour, ICollision {
     }
     public void Collision() {
         GetComponent<Collider>().enabled = false;
+        Destroy(gameObject, 3f);
     }
 }

@@ -63,10 +63,16 @@ public class ObjectGeneration : MonoBehaviour {
 
         mapObject.transform.position = new Vector3(randomxPos, randomyPos, position.z);
 
+        #region Gravity
+        if (spawnable.randomizeGravityOn) {
+            spawnable.gravityOn = Random.Range(0, 2) == 0 ? false : true;
+            mapObject.GetComponent<GravityManager>().ChangeGravityOn(mapObject.name.Contains("Tri") ? true : spawnable.gravityOn);
+        }
         if (spawnable.gravityOn) {
             mapObject.GetComponent<GravityManager>().RandomGravity();
         }
-        
+        #endregion
+
         if (mapObject.tag == "Obstacle") {
             mapObject.GetComponent<Obstacle>().CheckRotation();
         }

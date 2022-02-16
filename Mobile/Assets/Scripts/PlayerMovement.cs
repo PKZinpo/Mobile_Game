@@ -5,18 +5,18 @@ public class PlayerMovement : MonoBehaviour {
 
     private GlobalVariables gv;
     private GameManager gm;
-    private GravityManager gravityManager;
     private PlayerStatsManager psm;
 
     private Rigidbody rigidBody;
+    private float gravity;
+    private bool invertGravity;
     //private bool gameOver = true;
-    
+
     private void Start() {
         gv = GameObject.FindGameObjectWithTag("Global").GetComponent<GlobalVariables>();
         gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         psm = GameObject.FindGameObjectWithTag("PlayerStats").GetComponent<PlayerStatsManager>();
 
-        gravityManager = GetComponent<GravityManager>();
         rigidBody = GetComponent<Rigidbody>();
 
         gm.OnGameStart += OnStartGamePlayer;
@@ -27,17 +27,35 @@ public class PlayerMovement : MonoBehaviour {
         if (!gm.GameStarted || gm.GameEnded) return;
 
         if (Input.GetMouseButton(0)) {
-            gravityManager.InvertGravity = true;
+            InvertPlayerGravityObject(true);
         }
         else {
-            gravityManager.InvertGravity = false;
+            InvertPlayerGravityObject(false);
         }
 
-        if (rigidBody.velocity.x > 0f) {
-            rigidBody.AddForce(Vector3.left * gv.HorizontalGravity, ForceMode.Acceleration);
+        if (invertGravity) {
+            if (rigidBody.velocity.y < gv.MaxVerticalVelocity) {
+                rigidBody.AddForce(Vector3.down * gravity, ForceMode.Acceleration);
+            }
+        }
+        else {
+            if (rigidBody.velocity.y > -gv.MaxVerticalVelocity) {
+                rigidBody.AddForce(Vector3.down * gravity, ForceMode.Acceleration);
+            }
+        }
+
+        if (rigidBody.velocity.x < gv.MaxHorizontalVelocity) {
+            rigidBody.AddForce(Vector3.right * gv.HorizontalAcceleration, ForceMode.Acceleration);
+        }
+
+        if (!gm.GameEnded) {
             psm.AddScore(rigidBody.velocity.x);
         }
 
+    }
+    private void InvertPlayerGravityObject(bool inverted) {
+        invertGravity = inverted;
+        gravity = invertGravity ? -gv.VerticalGravity : gv.VerticalGravity;
     }
 
     private void OnStartGamePlayer(object sender, EventArgs e) {

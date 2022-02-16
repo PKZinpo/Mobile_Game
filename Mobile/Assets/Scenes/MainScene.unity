@@ -270,9 +270,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f07e8d6b638b2040b24a75f1b216788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ceiling: {fileID: 4886501605639498607, guid: 1dc3d5773cc2703479f86ed86dd66d19, type: 3}
-  mapPrefab: {fileID: 4003491700827712914, guid: fe818fbebd690184e86a659a84352ad9, type: 3}
+  mapPrefab:
+  - {fileID: 4003491700827712914, guid: fe818fbebd690184e86a659a84352ad9, type: 3}
+  - {fileID: 4003491700827712914, guid: a7b8dc8cae387894d91b413e75480d4c, type: 3}
+  - {fileID: 4003491700827712914, guid: 5151254b38ba9ab48a6f83faa2636f14, type: 3}
   spawnDistanceMax: 5
+  mapChangeScore: 10000
 --- !u!4 &252690726
 Transform:
   m_ObjectHideFlags: 0
@@ -479,7 +482,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_verticalGravity: 80
-  m_horizontalGravity: 0
+  m_horizontalAcceleration: 15
+  m_maxhorizontalVelocity: 35
   m_maxVerticalVelocity: 20
   m_startImpulse: 30
 --- !u!4 &465738376
@@ -1174,8 +1178,8 @@ MonoBehaviour:
   zoomScale: 0.2
   baseCameraSize: 5
   smoothCameraSizeSpeed: 5
-  topBound: 15
-  bottomBound: -15
+  topBound: 12
+  bottomBound: -12
   leftBound: 10
 --- !u!1 &1427501829
 GameObject:
@@ -1192,7 +1196,6 @@ GameObject:
   - component: {fileID: 1427501834}
   - component: {fileID: 1427501836}
   - component: {fileID: 1427501835}
-  - component: {fileID: 1427501837}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1411,20 +1414,6 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!114 &1427501837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1427501829}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d3f5fcd0cff48f4bb5175a277a08ea1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  invertGravity: 0
-  verticalVelocityCap: 1
 --- !u!1 &1427673780
 GameObject:
   m_ObjectHideFlags: 0
@@ -1483,7 +1472,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
