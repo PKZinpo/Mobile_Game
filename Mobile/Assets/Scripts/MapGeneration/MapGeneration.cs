@@ -57,14 +57,13 @@ public class MapGeneration : MonoBehaviour {
                 map.transform.position = targetPos;
             }
             prevMapSpawnPos = targetPos;
-            prevMapXHalfDis = mapToSpawn.transform.GetChild(mapPrefabIndex).GetComponent<Renderer>().bounds.size.x / 2f;
+            prevMapXHalfDis = mapToSpawn.transform.GetChild(0).GetComponent<Renderer>().bounds.size.x / 2f;
         }
     }
 
     public void GenerateMap(Vector3 position) {
-        float newMapXHalfDis = mapToSpawn.transform.GetChild(mapPrefabIndex).GetComponent<Renderer>().bounds.size.x / 2f;
+        float newMapXHalfDis = mapToSpawn.transform.GetChild(0).GetComponent<Renderer>().bounds.size.x / 2f;
         Vector3 newMapSpawnPos = new Vector3 (prevMapSpawnPos.x + newMapXHalfDis + prevMapXHalfDis, prevMapSpawnPos.y, prevMapSpawnPos.z);
-
 
         GameObject map = Instantiate(mapToSpawn, mapParentTransform);
         //map.transform.position = new Vector3(position.x + (spawnDistanceMax * xDis), position.y, position.z);

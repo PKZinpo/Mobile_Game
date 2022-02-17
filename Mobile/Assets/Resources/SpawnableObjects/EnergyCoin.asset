@@ -15,5 +15,6 @@ MonoBehaviour:
   objects:
   - {fileID: 4919686662379482872, guid: 873724ad0bb7e0645af8770e29261c4d, type: 3}
   parentSpawnIndexMin: 5
-  parentSpawnIndexMax: 10
+  parentSpawnIndexMax: 9
+  randomizeGravityOn: 0
   gravityOn: 0
