@@ -7,7 +7,7 @@ public class MapShiftManager : MonoBehaviour {
 
     [SerializeField] private float shiftDistance;
 
-    public event EventHandler OnMapShift;
+    //public event EventHandler OnMapShift;
 
     private GameObject player;
 
