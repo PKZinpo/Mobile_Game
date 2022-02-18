@@ -68,6 +68,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_2be1425307fd4a49bc7321c106699bcf: 0.648
+    - Vector1_61c7316b6c354c6abe65b8c636e7f105: 0
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -85,7 +87,8 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - Color_23bf6be77b9745ea801255e875504759: {r: 0.97890294, g: 0.8537736, b: 1, a: 0}
+    - Color_0d9b1f4d49ae4616a49361e7655545d0: {r: 1, g: 0.40943396, b: 0.40943396, a: 0}
+    - Color_23bf6be77b9745ea801255e875504759: {r: 1, g: 1, b: 1, a: 0}
     - _Color: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
