@@ -7,7 +7,7 @@ public class Obstacle : MonoBehaviour, ICollision {
     public void CheckRotation() {
         if (name.Contains("Tri")) { 
             if (GetComponent<GravityManager>().InvertGravity) {
-                transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z + 180f);
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x + 180f, transform.eulerAngles.y, transform.eulerAngles.z);
             }
         }
     }
