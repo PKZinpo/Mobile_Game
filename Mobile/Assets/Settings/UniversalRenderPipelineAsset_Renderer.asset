@@ -1,5 +1,33 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-825990984183009127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0547cce008bd9f74780246d28f80cafe, type: 3}
+  m_Name: DepthNormals
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  depthNormalsMaterial: {fileID: 0}
+--- !u!114 &-396092189694427676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f636d3cfa8429e438cba57511ef6070, type: 3}
+  m_Name: Outline
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings: {outlineMaterial: {fileID: 2100000, guid: 3af6a040bec84c64a98682604e36cb31, type: 2}}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13,8 +41,8 @@ MonoBehaviour:
   m_Name: UniversalRenderPipelineAsset_Renderer
   m_EditorClassIdentifier: 
   m_RendererFeatures:
-  - {fileID: 6340110520476065417}
-  m_RendererFeatureMap: 895eb151ed98fc57
+  - {fileID: 3661400641690992844}
+  m_RendererFeatureMap: cc0061147ce8cf32
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
   shaders:
@@ -43,7 +71,7 @@ MonoBehaviour:
   m_ShadowTransparentReceive: 1
   m_RenderingMode: 0
   m_AccurateGbufferNormals: 0
---- !u!114 &6340110520476065417
+--- !u!114 &3661400641690992844
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -52,7 +80,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0547cce008bd9f74780246d28f80cafe, type: 3}
-  m_Name: DepthNormals
+  m_Script: {fileID: 11500000, guid: 4cfdc755122c2214f8015102bee5d27b, type: 3}
+  m_Name: Outlines
   m_EditorClassIdentifier: 
   m_Active: 1
+  settings:
+    material: {fileID: 2100000, guid: 53af7461a8342644aac9f16a4b6a2595, type: 2}
+    materialPassIndex: 0
+    renderEvent: 500
