@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TItle
+  m_Name: Title
   m_Shader: {fileID: -6465566751694194690, guid: 0ea5589ed58c892488547cf6278f7f48, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -89,6 +89,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Boolean_34d01beab0de4d19915c87c8850b325b: 0
     - Vector1_07ea207820e148309e297092e8f6d84c: 1
     - Vector1_11e9f47ef8ef4e01854c857a38cc266d: 5
     - Vector1_229a0dd0750f4b64862da97b0ca3c1ba: 10
@@ -135,7 +136,7 @@ Material:
     - Color_0d9b1f4d49ae4616a49361e7655545d0: {r: 1, g: 0.6591601, b: 0.15471691, a: 0}
     - Color_23bf6be77b9745ea801255e875504759: {r: 1, g: 0, b: 0.62352943, a: 0}
     - Color_5accac8e95c8403c9883127b5ddbf2c5: {r: 0, g: 0, b: 0, a: 0}
-    - Color_8b2ad7ad15d4413ea3b61af6ac6bef40: {r: 0.7169812, g: 0, b: 0.4707288, a: 0}
+    - Color_8b2ad7ad15d4413ea3b61af6ac6bef40: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 0}
     - Color_cde6ae2babfb4ab4920168416d80f043: {r: 1, g: 1, b: 1, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
