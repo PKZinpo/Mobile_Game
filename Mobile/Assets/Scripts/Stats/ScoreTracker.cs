@@ -18,7 +18,7 @@ public class ScoreTracker : MonoBehaviour {
     }
 
     private void OnScoreUpdate(object sender, EventArgs e) {
-        scoreText.text = psm.PlayerScore.ToString();
+        scoreText.text = " " + psm.PlayerScore.ToString() + " m";
     }
 
     private void OnDestroy() {

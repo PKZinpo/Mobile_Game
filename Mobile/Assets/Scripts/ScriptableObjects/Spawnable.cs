@@ -16,6 +16,7 @@ public class Spawnable : ScriptableObject {
 
     [HideInInspector] public bool randomizeGravityOn;
     [HideInInspector] public bool gravityOn;
+    [HideInInspector] public bool randomizeMovement;
 }
 
 #if UNITY_EDITOR
@@ -32,6 +33,7 @@ public class Spawnable_Editor : Editor {
 
         if (!script.randomizeGravityOn) {
             script.gravityOn = EditorGUILayout.Toggle("Gravity On", script.gravityOn);
+            script.randomizeMovement = EditorGUILayout.Toggle("Randomize Movement", script.randomizeMovement);
         }
     }
 }

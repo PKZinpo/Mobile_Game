@@ -65,11 +65,16 @@ public class ObjectGeneration : MonoBehaviour {
 
         #region Gravity
         if (spawnable.randomizeGravityOn) {
-            spawnable.gravityOn = Random.Range(0, 2) == 0 ? false : true;
+            spawnable.gravityOn = Random.Range(0, 2) != 0;
+            spawnable.randomizeMovement = spawnable.gravityOn ? false : Random.Range(0, 2) != 0;
             mapObject.GetComponent<GravityManager>().ChangeGravityOn(mapObject.name.Contains("Tri") ? true : spawnable.gravityOn);
         }
+        
         if (spawnable.gravityOn) {
             mapObject.GetComponent<GravityManager>().RandomGravity();
+        }
+        else if (spawnable.randomizeMovement && !mapObject.name.Contains("Tri")) {
+            mapObject.GetComponent<GravityManager>().MovementImpulse();
         }
         #endregion
 

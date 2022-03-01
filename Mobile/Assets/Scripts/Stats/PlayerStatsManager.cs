@@ -43,7 +43,7 @@ public class PlayerStatsManager : MonoBehaviour {
     private void OnStartGamePlayerStats(object sender, EventArgs e) {
         PlayerScore = 0;
         PlayerEnergy = 100f;
-        ScoreMultiplier = 1f;
+        ScoreMultiplier = 0.1f;
     }
     public void AddScore(float val) {
         PlayerScore += (int)(val * ScoreMultiplier);
