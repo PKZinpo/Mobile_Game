@@ -12,9 +12,6 @@ public class PlayerSkin {
 }
 public class SkinManager : MonoBehaviour {
 
-    //[HideInInspector] public string currentSkin;
-    //[HideInInspector] public Color currentColor;
-
     [SerializeField] private PlayerSkin[] skinProperties;
 
     private Dictionary<string, PlayerSkin> skinList = new Dictionary<string, PlayerSkin>();
@@ -32,13 +29,8 @@ public class SkinManager : MonoBehaviour {
             skinList.Add(skinProperties[i].skin.name, skinProperties[i]);
             Debug.Log("[Skinmanager] Added skin " + skinProperties[i].skin.name + " to dictionary");
         }
-        
     }
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            Debug.Log(GetCurrentSkinColors().Length);
-        }
-    }
+
     private void LoadCurrentSkin(object sender, LevelLoader.OnLoadDataEventArgs e) {
         currentSkin = e.gameData.skinName;
         currentColor = e.gameData.skinColor;
@@ -52,9 +44,8 @@ public class SkinManager : MonoBehaviour {
     public void ConfirmCurrentSkin() {
 
     }
-
-    public Color[] GetCurrentSkinColors() {
-        return skinList[currentSkin].colors;
+    public Color[] GetCurrentSkinColors(string skin) {
+        return skinList[skin].colors;
     }
 
 }

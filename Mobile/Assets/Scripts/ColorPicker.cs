@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,12 +18,10 @@ public class ColorPicker : MonoBehaviour {
     }
 
     private void LoadSkinColors(object sender, LevelLoader.OnLoadDataEventArgs e) {
-        for (int i = 0; i < sm.GetCurrentSkinColors().Length; i++) {
+        for (int i = 0; i < sm.GetCurrentSkinColors(e.gameData.skinName).Length; i++) {
             GameObject icon = Instantiate(colorIcon, transform);
-            icon.GetComponent<Image>().color = sm.GetCurrentSkinColors()[i];
-            Debug.Log("[ColorPicker] Added skin color " + icon.GetComponent<Image>().color);
+            icon.GetComponent<Image>().color = sm.GetCurrentSkinColors(e.gameData.skinName)[i];
         }
-    } 
-
-
+        Debug.Log("[ColorPicker] Loaded current skin colors");
+    }
 }

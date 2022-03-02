@@ -23,7 +23,7 @@ public class LevelLoader : MonoBehaviour {
         if (data == null) {
             game.highscore = 0;
             game.skinName = "Original";
-            game.skinColor = new Color(0f, 150f, 0f);
+            game.skinColor = new Color(0f, 150f, 0f, 255f);
             game.musicOff = false;
             game.soundOff = false;
             Debug.Log("[LevelLoader] No game data exists, creating new data");
@@ -31,7 +31,7 @@ public class LevelLoader : MonoBehaviour {
         else {
             game.highscore = data.highscore;
             game.skinName = data.skinName;
-            game.skinColor = new Color(data.colors[0], data.colors[1], data.colors[2]);
+            game.skinColor = new Color(data.colors[0], data.colors[1], data.colors[2], data.colors[3]);
             game.musicOff = data.musicOff;
             game.soundOff = data.soundOff;
             Debug.Log("[LevelLoader] Loaded game data");

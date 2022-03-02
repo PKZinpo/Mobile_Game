@@ -16,10 +16,11 @@ public class SaveData {
         highscore = data.highscore;
         skinName = data.skinName;
 
-        colors = new float[3];
+        colors = new float[4];
         colors[0] = data.skinColor.r;
         colors[1] = data.skinColor.g;
         colors[2] = data.skinColor.b;
+        colors[3] = data.skinColor.a;
 
         soundOff = data.soundOff;
         musicOff = data.musicOff;
