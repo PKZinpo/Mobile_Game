@@ -12,6 +12,8 @@ TagManager:
   - GameManager
   - Global
   - PlayerStats
+  - SkinManager
+  - LevelLoader
   layers:
   - Default
   - TransparentFX
