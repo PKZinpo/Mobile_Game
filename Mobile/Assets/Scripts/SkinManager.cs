@@ -12,7 +12,11 @@ public class PlayerSkin {
 }
 public class SkinManager : MonoBehaviour {
 
+    public event EventHandler OnSkinLoad;
+
     [SerializeField] private PlayerSkin[] skinProperties;
+    [SerializeField] private Color[] colorUI;
+    [SerializeField] private Color[] colorSkin;
 
     private Dictionary<string, PlayerSkin> skinList = new Dictionary<string, PlayerSkin>();
     private LevelLoader ll;
@@ -37,6 +41,8 @@ public class SkinManager : MonoBehaviour {
         playerObject = Instantiate(skinList[currentSkin].skin, GameObject.FindGameObjectWithTag("Player").transform);
         playerObject.GetComponent<Renderer>().material.color = currentColor;
         Debug.Log("[SkinManager] Loaded player in skin selector");
+        
+        OnSkinLoad?.Invoke(this, EventArgs.Empty);
     }
     public void ChangeCurrentSkin() {
 
@@ -48,4 +54,24 @@ public class SkinManager : MonoBehaviour {
         return skinList[skin].colors;
     }
 
+    public Color UIColorToSkinColor(Color colorIn) {
+        for (int i = 0; i < colorUI.Length; i++) {
+            if (colorUI[i] == colorIn) {
+                return colorSkin[i];
+            }
+        }
+        //Color colorOut = colorSkin[Array.IndexOf(colorUI, colorIn)];
+        return Color.white;
+    }
+
+    public Color SkinColorToUIColor(Color colorIn) {
+        for (int i = 0; i < colorSkin.Length; i++) {
+            if (colorSkin[i] == colorIn) {
+                return colorUI[i];
+            }
+        }
+        //Color colorOut = colorUI[Array.IndexOf(colorSkin, colorIn)];
+        //Debug.Log("[SkinManager] UI Color out is " + colorOut);
+        return Color.white;
+    }
 }

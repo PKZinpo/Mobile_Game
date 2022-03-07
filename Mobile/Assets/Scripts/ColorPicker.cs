@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class ColorPicker : MonoBehaviour {
 
     [SerializeField] private GameObject colorIcon;
+    [SerializeField] private GameObject colorSelector;
     private LevelLoader ll;
     private SkinManager sm;
 
@@ -15,13 +16,17 @@ public class ColorPicker : MonoBehaviour {
         ll = GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>();
 
         ll.OnLoadData += LoadSkinColors;
+        sm.OnSkinLoad += LoadSelector;
     }
 
     private void LoadSkinColors(object sender, LevelLoader.OnLoadDataEventArgs e) {
         for (int i = 0; i < sm.GetCurrentSkinColors(e.gameData.skinName).Length; i++) {
             GameObject icon = Instantiate(colorIcon, transform);
-            icon.GetComponent<Image>().color = sm.GetCurrentSkinColors(e.gameData.skinName)[i];
+            icon.GetComponent<Image>().color = sm.SkinColorToUIColor(sm.GetCurrentSkinColors(e.gameData.skinName)[i]);
         }
         Debug.Log("[ColorPicker] Loaded current skin colors");
+    }
+    private void LoadSelector(object sender, EventArgs e) {
+
     }
 }
