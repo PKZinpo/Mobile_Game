@@ -1022,6 +1022,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colorIcon: {fileID: 486578133473955261, guid: 196e9add5d61f4a4ab8d4ab63f0bbc2a, type: 3}
   colorSelector: {fileID: 221537180}
+  moveUp: {fileID: 1511447901}
+  moveDown: {fileID: 1621555621}
 --- !u!1 &1182327639
 GameObject:
   m_ObjectHideFlags: 0
@@ -1322,7 +1324,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1511447904}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 967164612}
+        m_TargetAssemblyTypeName: ColorPicker, Assembly-CSharp
+        m_MethodName: MoveSelectorUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1511447904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1536,7 +1550,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1621555624}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 967164612}
+        m_TargetAssemblyTypeName: ColorPicker, Assembly-CSharp
+        m_MethodName: MoveSelectorDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1621555624
 MonoBehaviour:
   m_ObjectHideFlags: 0

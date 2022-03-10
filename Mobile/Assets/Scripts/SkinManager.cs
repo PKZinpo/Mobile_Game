@@ -50,6 +50,9 @@ public class SkinManager : MonoBehaviour {
     public void ConfirmCurrentSkin() {
 
     }
+    public Color GetCurrentColor() {
+        return currentColor;
+    }
     public Color[] GetCurrentSkinColors(string skin) {
         return skinList[skin].colors;
     }
