@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour {
 
@@ -42,6 +43,9 @@ public class LevelLoader : MonoBehaviour {
     private void SaveData() {
         SaveSystem.SaveGameData(FindObjectOfType<GameSaveData>());
         Debug.Log("[LevelLoader] Saved game data");
+    }
+    public void LoadScene(string sceneName) {
+        SceneManager.LoadScene(sceneName);
     }
     public void OnApplicationQuit() {
         SaveData();

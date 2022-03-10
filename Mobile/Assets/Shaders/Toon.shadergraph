@@ -1883,7 +1883,7 @@
     },
     "m_Name": "MainColor",
     "m_DefaultReferenceName": "",
-    "m_OverrideReferenceName": "Color_8b2ad7ad15d4413ea3b61af6ac6bef40",
+    "m_OverrideReferenceName": "_MainColor",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,

@@ -25,7 +25,17 @@ public class SkinManager : MonoBehaviour {
     private Color currentColor;
     private GameObject playerObject;
 
+    //private static SkinManager instance;
+
     private void Awake() {
+
+        //if (instance != null) {
+        //    Destroy(gameObject);
+        //    return;
+        //}
+        //instance = this;
+        //DontDestroyOnLoad(gameObject);
+
         ll = GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>();
         ll.OnLoadData += LoadCurrentSkin;
         
@@ -38,17 +48,19 @@ public class SkinManager : MonoBehaviour {
     private void LoadCurrentSkin(object sender, LevelLoader.OnLoadDataEventArgs e) {
         currentSkin = e.gameData.skinName;
         currentColor = e.gameData.skinColor;
-        playerObject = Instantiate(skinList[currentSkin].skin, GameObject.FindGameObjectWithTag("Player").transform);
-        playerObject.GetComponent<Renderer>().material.color = currentColor;
-        Debug.Log("[SkinManager] Loaded player in skin selector");
+        if (playerObject == null) playerObject = Instantiate(skinList[currentSkin].skin, GameObject.FindGameObjectWithTag("Player").transform);
+        playerObject.GetComponent<Renderer>().material.SetColor("_MainColor", currentColor);
+        Debug.Log("[SkinManager] Loaded player");
         
         OnSkinLoad?.Invoke(this, EventArgs.Empty);
     }
-    public void ChangeCurrentSkin() {
-
+    public void ChangeCurrentColor(Color color) {
+        currentColor = color;
+        playerObject.GetComponent<Renderer>().material.SetColor("_MainColor", currentColor);
     }
     public void ConfirmCurrentSkin() {
-
+        FindObjectOfType<GameSaveData>().skinName = currentSkin;
+        FindObjectOfType<GameSaveData>().skinColor = currentColor;
     }
     public Color GetCurrentColor() {
         return currentColor;
@@ -63,7 +75,6 @@ public class SkinManager : MonoBehaviour {
                 return colorSkin[i];
             }
         }
-        //Color colorOut = colorSkin[Array.IndexOf(colorUI, colorIn)];
         return Color.white;
     }
 
@@ -73,8 +84,6 @@ public class SkinManager : MonoBehaviour {
                 return colorUI[i];
             }
         }
-        //Color colorOut = colorUI[Array.IndexOf(colorSkin, colorIn)];
-        //Debug.Log("[SkinManager] UI Color out is " + colorOut);
         return Color.white;
     }
 }
