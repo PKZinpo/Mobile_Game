@@ -12,8 +12,6 @@ public class PlayerSkin {
 }
 public class SkinManager : MonoBehaviour {
 
-    public event EventHandler OnSkinLoad;
-
     [SerializeField] private PlayerSkin[] skinProperties;
     [SerializeField] private Color[] colorUI;
     [SerializeField] private Color[] colorSkin;
@@ -50,9 +48,8 @@ public class SkinManager : MonoBehaviour {
         currentColor = e.gameData.skinColor;
         if (playerObject == null) playerObject = Instantiate(skinList[currentSkin].skin, GameObject.FindGameObjectWithTag("Player").transform);
         playerObject.GetComponent<Renderer>().material.SetColor("_MainColor", currentColor);
+        playerObject.transform.GetChild(0).GetComponent<ParticleSystemRenderer>().material.SetColor("_MainColor", currentColor);
         Debug.Log("[SkinManager] Loaded player");
-        
-        OnSkinLoad?.Invoke(this, EventArgs.Empty);
     }
     public void ChangeCurrentColor(Color color) {
         currentColor = color;
@@ -61,6 +58,7 @@ public class SkinManager : MonoBehaviour {
     public void ConfirmCurrentSkin() {
         FindObjectOfType<GameSaveData>().skinName = currentSkin;
         FindObjectOfType<GameSaveData>().skinColor = currentColor;
+        Debug.Log("[SkinManager] Set new skin to " + currentSkin + " and " + currentColor);
     }
     public Color GetCurrentColor() {
         return currentColor;
