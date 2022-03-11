@@ -25,7 +25,7 @@ public class ColorPicker : MonoBehaviour {
         ll = GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>();
 
         ll.OnLoadData += LoadSkinColors;
-        sm.OnSkinLoad += LoadSelector;
+        ll.OnSkinLoad += LoadSelector;
 
         colorIconYSize = colorIcon.GetComponent<RectTransform>().sizeDelta.y;
     }
@@ -50,6 +50,7 @@ public class ColorPicker : MonoBehaviour {
             }
         }
         AdjustSelector(colorList[selectedSkinIndex - 1]);
+        Debug.Log("[ColorPicker] Loaded selector");
     }
     private void AdjustSelector(Color color) {
         for (int i = 0; i < colorList.Count; i++) {
@@ -79,6 +80,6 @@ public class ColorPicker : MonoBehaviour {
         sm.ChangeCurrentColor(colorList[selectedSkinIndex - 1]);
     }
     public void SetSkin() {
-
+        sm.ConfirmCurrentSkin();
     }
 }

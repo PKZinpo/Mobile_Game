@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class LevelLoader : MonoBehaviour {
 
     public event EventHandler<OnLoadDataEventArgs> OnLoadData;
+    public event EventHandler OnSkinLoad;
 
     public class OnLoadDataEventArgs : EventArgs {
         public GameSaveData gameData;
@@ -38,13 +39,14 @@ public class LevelLoader : MonoBehaviour {
             Debug.Log("[LevelLoader] Loaded game data");
         }
         OnLoadData?.Invoke(this, new OnLoadDataEventArgs { gameData = game });
-        
+        OnSkinLoad?.Invoke(this, EventArgs.Empty);
     }
     private void SaveData() {
         SaveSystem.SaveGameData(FindObjectOfType<GameSaveData>());
         Debug.Log("[LevelLoader] Saved game data");
     }
     public void LoadScene(string sceneName) {
+        SaveData();
         SceneManager.LoadScene(sceneName);
     }
     public void OnApplicationQuit() {
