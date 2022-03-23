@@ -18,4 +18,6 @@ MonoBehaviour:
   - {fileID: 5778304185673839024, guid: 298d6b445b1b8d546a12568ad25c567d, type: 3}
   parentSpawnIndexMin: 0
   parentSpawnIndexMax: 0
+  randomizeGravityOn: 1
   gravityOn: 1
+  randomizeMovement: 0
