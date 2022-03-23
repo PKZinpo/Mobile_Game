@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraRotator : MonoBehaviour {
+public class TitleCamera : MonoBehaviour {
 
     [SerializeField] private float rotateSpeed;
 

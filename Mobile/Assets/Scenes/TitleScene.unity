@@ -283,8 +283,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200876480}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 15}
-  m_LocalScale: {x: 50, y: 50, z: 1}
+  m_LocalPosition: {x: 0, y: 4.8096, z: 15}
+  m_LocalScale: {x: 50, y: 59.62, z: 1}
   m_Children: []
   m_Father: {fileID: 1737850986}
   m_RootOrder: 1
@@ -597,7 +597,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 496104393}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 15, z: 0}
+  m_LocalPosition: {x: 0, y: 30.79, z: 0}
   m_LocalScale: {x: 50, y: 1, z: 50}
   m_Children: []
   m_Father: {fileID: 1737850986}
@@ -1108,7 +1108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1674e108cd4e8b54bb47b57e67ef9398, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: -20
+  rotateSpeed: 0
 --- !u!4 &853114628
 Transform:
   m_ObjectHideFlags: 0
@@ -1374,8 +1374,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1313347329}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -15}
-  m_LocalScale: {x: 50, y: 50, z: 1}
+  m_LocalPosition: {x: 0, y: 5.3926, z: -15}
+  m_LocalScale: {x: 50, y: 60.785, z: 1}
   m_Children: []
   m_Father: {fileID: 1737850986}
   m_RootOrder: 3
@@ -2038,8 +2038,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1872198549}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 50, z: 50}
+  m_LocalPosition: {x: 15, y: 5.0083, z: 0}
+  m_LocalScale: {x: 1, y: 60.015, z: 50}
   m_Children: []
   m_Father: {fileID: 1737850986}
   m_RootOrder: 2
@@ -2260,8 +2260,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1959085268}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 50, z: 50}
+  m_LocalPosition: {x: -15, y: 4.6849, z: 0}
+  m_LocalScale: {x: 1, y: 59.37, z: 50}
   m_Children: []
   m_Father: {fileID: 1737850986}
   m_RootOrder: 0
