@@ -31,6 +31,11 @@ public class ColorPicker : MonoBehaviour {
     }
 
     private void LoadSkinColors(object sender, LevelLoader.OnLoadDataEventArgs e) {
+
+        for (int i = 0; i < transform.childCount; i++) {
+            Destroy(transform.GetChild(i).gameObject);
+        }
+
         selectedSkinName = e.gameData.skinName;
         Color[] colors = sm.GetCurrentSkinColors(selectedSkinName);
         for (int i = 0; i < colors.Length; i++) {
@@ -43,6 +48,16 @@ public class ColorPicker : MonoBehaviour {
         Debug.Log("[ColorPicker] Loaded current skin's colors");
     }
     private void LoadSelector(object sender, EventArgs e) {
+        for (int i = 0; i < colorList.Count; i++) {
+            if (colorList[i] == sm.GetCurrentColor()) {
+                selectedSkinIndex = i + 1;
+                break;
+            }
+        }
+        AdjustSelector(colorList[selectedSkinIndex - 1]);
+        Debug.Log("[ColorPicker] Loaded selector");
+    }
+    public void LoadSelector() {
         for (int i = 0; i < colorList.Count; i++) {
             if (colorList[i] == sm.GetCurrentColor()) {
                 selectedSkinIndex = i + 1;

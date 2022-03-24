@@ -17,7 +17,7 @@ public class LevelLoader : MonoBehaviour {
         LoadData();
     }
 
-    private void LoadData() {
+    public void LoadData() {
 
         SaveData data = SaveSystem.LoadGameData();
         GameSaveData game = FindObjectOfType<GameSaveData>();

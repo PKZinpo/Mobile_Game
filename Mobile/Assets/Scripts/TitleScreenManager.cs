@@ -1,16 +1,47 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TitleScreenManager : MonoBehaviour {
 
-    private bool inSkinSelection
+    [SerializeField] private GameObject skinSelectionUI;
+    [SerializeField] private GameObject titleUI;
+    [SerializeField] private Animator titleCameraAnimator;
+    [SerializeField] private float cameraRotateSpeed;
 
-    void Start() {
-        
+    private LevelLoader ll;
+    private bool inSkinSelection;
+
+    private void Start() {
+        ll = GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>();
+
+        inSkinSelection = false;
+        skinSelectionUI.SetActive(false);
     }
 
-    void Update() {
-        
+    public void ChangeUI() {
+        if (inSkinSelection) {
+            inSkinSelection = false;
+            skinSelectionUI.SetActive(false);
+            titleCameraAnimator.SetTrigger("ToTitle");
+        }
+        else {
+            inSkinSelection = true;
+            titleUI.SetActive(false);
+            titleCameraAnimator.SetTrigger("ToSkin");
+        }
+    }
+    public void ToggleUI() {
+        if (inSkinSelection) {
+            skinSelectionUI.SetActive(true);
+            GameObject.Find("CameraRotator").GetComponent<TitleCamera>().RotateSpeed = cameraRotateSpeed;
+        }
+        else {
+            titleUI.SetActive(true);
+            ll.LoadData();
+            GameObject.Find("CameraRotator").GetComponent<TitleCamera>().RotateSpeed = 0f;
+        }
+        titleCameraAnimator.SetTrigger("ToIdle");
     }
 }
