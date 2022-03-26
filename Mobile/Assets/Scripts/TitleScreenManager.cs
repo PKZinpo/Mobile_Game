@@ -29,6 +29,7 @@ public class TitleScreenManager : MonoBehaviour {
         else {
             inSkinSelection = true;
             titleUI.SetActive(false);
+            ll.LoadData();
             titleCameraAnimator.SetTrigger("ToSkin");
         }
     }
@@ -39,7 +40,7 @@ public class TitleScreenManager : MonoBehaviour {
         }
         else {
             titleUI.SetActive(true);
-            ll.LoadData();
+            ll.SaveData();
             GameObject.Find("CameraRotator").GetComponent<TitleCamera>().RotateSpeed = 0f;
         }
         titleCameraAnimator.SetTrigger("ToIdle");

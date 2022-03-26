@@ -41,7 +41,7 @@ public class LevelLoader : MonoBehaviour {
         OnLoadData?.Invoke(this, new OnLoadDataEventArgs { gameData = game });
         OnSkinLoad?.Invoke(this, EventArgs.Empty);
     }
-    private void SaveData() {
+    public void SaveData() {
         SaveSystem.SaveGameData(FindObjectOfType<GameSaveData>());
         Debug.Log("[LevelLoader] Saved game data");
     }
